@@ -1,5 +1,7 @@
 package com.studentservice.student.populator.impl;
 
+import com.studentservice.student.dtos.CourseDTO;
+import com.studentservice.student.dtos.ResultDTO;
 import com.studentservice.student.dtos.StudentDTO;
 import com.studentservice.student.models.StudentModel;
 import com.studentservice.student.populator.StudentPopulator;
@@ -33,4 +35,5 @@ public class StudentPopulatorImpl implements StudentPopulator {
         studentModel.setName(studentDTO.getName());
         return studentModel;
     }
+
 }

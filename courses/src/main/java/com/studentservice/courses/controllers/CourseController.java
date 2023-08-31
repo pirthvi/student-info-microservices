@@ -2,6 +2,7 @@ package com.studentservice.courses.controllers;
 
 
 import com.studentservice.courses.dto.CourseDTO;
+import com.studentservice.courses.dto.CourseWrapper;
 import com.studentservice.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,10 @@ public class CourseController {
     @Autowired
     CourseService courseService;
     @GetMapping(value = "/{studentId}")
-    public ResponseEntity<List<CourseDTO>> getCourseByStudentId(@PathVariable("studentId")final Integer studentId){
-            return  new ResponseEntity<>(courseService.getCourseByStudnetId(studentId), HttpStatus.OK);
+    public ResponseEntity<CourseWrapper> getCourseByStudentId(@PathVariable("studentId")final Integer studentId){
+        CourseWrapper courseWrapper = new CourseWrapper();
+        courseWrapper.setCourseDTO(courseService.getCourseByStudnetId(studentId));
+            return  new ResponseEntity<>(courseWrapper, HttpStatus.OK);
     }
     @PostMapping(value = "/create")
     public ResponseEntity<CourseDTO> create(@RequestBody CourseDTO courseDTO){
