@@ -1,5 +1,7 @@
 package com.studentservice.student.dtos;
 
+import java.util.List;
+
 public class StudentDTO {
     private Integer id;
     private String name;
@@ -11,6 +13,9 @@ public class StudentDTO {
     private String gender;
     private String dateOfBirth;
 
+    private List<CourseDTO> courseDTOList;
+
+    private ResultDTO resultDTO;
     public Integer getId() {
         return id;
     }
@@ -73,5 +78,21 @@ public class StudentDTO {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<CourseDTO> getCourseDTOList() {
+        return courseDTOList;
+    }
+
+    public void setCourseDTOList(List<CourseDTO> courseDTOList) {
+        this.courseDTOList = courseDTOList;
+    }
+
+    public ResultDTO getResultDTO() {
+        return resultDTO;
+    }
+
+    public void setResultDTO(ResultDTO resultDTO) {
+        this.resultDTO = resultDTO;
     }
 }
