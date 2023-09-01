@@ -1,5 +1,6 @@
 package com.studentservice.student.outboundservice.impl;
 
+import com.studentservice.student.client.RestClient;
 import com.studentservice.student.dtos.CourseWrapper;
 import com.studentservice.student.dtos.ResultDTO;
 import com.studentservice.student.outboundservice.StudentOutBoundService;
@@ -18,6 +19,8 @@ import java.util.Collections;
 public class StudentOutBoundServiceImpl implements StudentOutBoundService {
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    RestClient restClient;
    @Value("${com.student.service.result.service.create.url}")
     String  RESULT_SERVICE_CREATE_URL;
     @Value("${com.student.service.course.service.create.url}")
@@ -33,8 +36,7 @@ public class StudentOutBoundServiceImpl implements StudentOutBoundService {
     @Override
     public ResultDTO createStudentResult(ResultDTO resultDTO) {
         HttpEntity<ResultDTO> request= new HttpEntity<>(resultDTO,getHeaders());
-        ResultDTO resultDtoResponse= restTemplate.exchange(RESULT_SERVICE_CREATE_URL, HttpMethod.POST,request,ResultDTO.class).getBody();
-
+       ResultDTO resultDtoResponse = restClient.sendRequest(RESULT_SERVICE_CREATE_URL, HttpMethod.POST,request,ResultDTO.class);
         return resultDtoResponse;
     }
 
@@ -42,20 +44,22 @@ public class StudentOutBoundServiceImpl implements StudentOutBoundService {
     public CourseWrapper createStudentCourse(CourseWrapper courseWrapper) {
         HttpEntity<CourseWrapper> courseRequest= new HttpEntity<>(courseWrapper,getHeaders());
 
-        CourseWrapper courseWrapperResponse=  restTemplate.exchange(COURSE_SERVICE_CREATE_URL,HttpMethod.POST,courseRequest, CourseWrapper.class).getBody();
+        CourseWrapper courseWrapperResponse=  restClient.sendRequest(COURSE_SERVICE_CREATE_URL,HttpMethod.POST,courseRequest, CourseWrapper.class);
         return courseWrapperResponse;
 
     }
 
     @Override
     public ResultDTO getStudentResult(Integer studentId) {
-        ResultDTO resultDTO=restTemplate.getForObject(RESULT_SERVICE_GET_URL+studentId,ResultDTO.class);
+        ResultDTO resultDTO= restClient.sendRequest(RESULT_SERVICE_GET_URL+studentId,HttpMethod.GET,null,ResultDTO.class);
+        //ResultDTO resultDTO=restTemplate.getForObject(RESULT_SERVICE_GET_URL+studentId,ResultDTO.class);
         return resultDTO;
     }
 
     @Override
     public CourseWrapper getStudentCourses(Integer studentId) {
-        CourseWrapper courseWrapper= restTemplate.getForObject(COURSE_SERVICE_GET_URL+studentId,CourseWrapper.class);
+        CourseWrapper courseWrapper= restClient.sendRequest(COURSE_SERVICE_GET_URL+studentId,HttpMethod.GET,null,CourseWrapper.class);
+      //  CourseWrapper courseWrapper= restTemplate.getForObject(COURSE_SERVICE_GET_URL+studentId,CourseWrapper.class);
         return courseWrapper;
 
     }
