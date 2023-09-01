@@ -2,6 +2,7 @@ package com.studentservice.courses.service.impl;
 
 import com.studentservice.courses.dao.CourseDao;
 import com.studentservice.courses.dto.CourseDTO;
+import com.studentservice.courses.dto.CourseWrapper;
 import com.studentservice.courses.model.CourseModel;
 import com.studentservice.courses.populator.CoursePopulator;
 import com.studentservice.courses.service.CourseService;
@@ -24,12 +25,20 @@ public class CourseServiceImpl implements CourseService {
             CourseDTO courseDTO = coursePopulator.populate(courseModel);
             courseDTOS.add(courseDTO);
 
+
         }
         return courseDTOS;
     }
 
     @Override
-    public CourseDTO createCourse(CourseDTO courseDTO) {
-        return coursePopulator.populate(courseDao.save(coursePopulator.reversePopulate(courseDTO)));
+    public CourseWrapper createCourse(CourseWrapper courseWrapper) {
+    List<CourseDTO> courseDTOS= new ArrayList<>();
+    CourseWrapper courseWrapper1= new CourseWrapper();
+        for(CourseDTO courseDTO: courseWrapper.getCourseDTO()){
+            courseDTO.setStudentId(courseWrapper.getStudentId());
+            courseDTOS.add(coursePopulator.populate(courseDao.save(coursePopulator.reversePopulate(courseDTO))));
+        }
+       courseWrapper1.setCourseDTO(courseDTOS);
+        return courseWrapper1;
     }
 }

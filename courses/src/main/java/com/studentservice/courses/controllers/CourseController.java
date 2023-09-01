@@ -23,7 +23,7 @@ public class CourseController {
             return  new ResponseEntity<>(courseWrapper, HttpStatus.OK);
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<CourseDTO> create(@RequestBody CourseDTO courseDTO){
-        return  new ResponseEntity<>(courseService.createCourse(courseDTO),HttpStatus.CREATED);
+    public ResponseEntity<CourseWrapper> create(@RequestBody CourseWrapper courseWrapper){
+        return  new ResponseEntity<>(courseService.createCourse(courseWrapper),HttpStatus.CREATED);
     }
 }

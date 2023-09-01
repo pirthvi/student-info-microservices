@@ -13,7 +13,7 @@ public class StudentDTO {
     private String gender;
     private String dateOfBirth;
 
-    private List<CourseDTO> courseDTOList;
+    private CourseWrapper courses;
 
     private ResultDTO resultDTO;
     public Integer getId() {
@@ -80,12 +80,12 @@ public class StudentDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<CourseDTO> getCourseDTOList() {
-        return courseDTOList;
+    public CourseWrapper getCourses() {
+        return courses;
     }
 
-    public void setCourseDTOList(List<CourseDTO> courseDTOList) {
-        this.courseDTOList = courseDTOList;
+    public void setCourses(CourseWrapper courses) {
+        this.courses = courses;
     }
 
     public ResultDTO getResultDTO() {
