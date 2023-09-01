@@ -16,10 +16,10 @@ public class RestClientImpl implements RestClient {
 
     @Override
     public <V> V sendRequest(final String url, final HttpMethod method,
-                             final HttpEntity<?> laminexRequestEntity, final Class responseClass)
+                             final HttpEntity<?> requestEntity, final Class responseClass)
             throws HttpClientErrorException {
         ResponseEntity<V> result = null;
-        result = restTemplate.exchange(url, method, laminexRequestEntity, responseClass);
+        result = restTemplate.exchange(url, method, requestEntity, responseClass);
         return result.getBody();
     }
 }
